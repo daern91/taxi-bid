@@ -1,0 +1,49 @@
+version: "3.9"
+services:
+    postgres:
+        image: postgres:14-alpine
+        restart: always
+        volumes:
+            - .postgres/data:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_PASSWORD
+            - POSTGRES_DB
+            - POSTGRES_INITDB_ARGS=--auth-host=md5 --auth-local=md5
+        command: -p 5432 -c max_connections=1000
+
+    db-migrations:
+        image: flyway/flyway:7.9-alpine
+        command: -user=postgres -password=$POSTGRES_PASSWORD -url=jdbc:postgresql://host.docker.internal:5432/taxi-db -connectRetries=60 migrate
+        depends_on:
+            - postgres
+        volumes:
+            - ./db-migrations/sql:/flyway/sql
+        environment:
+            - POSTGRES_PASSWORD
+            - POSTGRES_DB
+
+    backend:
+        build: backend
+        depends_on:
+          - postgres
+        volumes:
+          - ./backend:/backend
+          - /backend/node_modules
+        ports:
+          - 9090:9090
+        command: ["npm", "run", "dev"]
+        environment:
+            - POSTGRES_PASSWORD
+            - PGUSER
+            - PGPASSWORD
+            - PGDATABASE
+            - PGHOST=host.docker.internal
+            - PGPORT=5432
+            - PG_CLIENT_MAX_CONNECTIONS=100
+            - PG_CLIENT_CONNECTION_TIMEOUT_MS=10000
+            - PG_CLIENT_CONNECTION_IDLE_TIMEOUT_MS=10000
+            - PG_CLIENT_ALLOW_EXIT_ON_IDLE=false
+            - PG_CLIENT_MAX_USES_PER_CONNECTION=7500
+

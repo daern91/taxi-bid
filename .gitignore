@@ -2,6 +2,7 @@ node_modules
 **/dist
 **/build
 **/spec
+.postgres
 
 *.swp
 *.swo
