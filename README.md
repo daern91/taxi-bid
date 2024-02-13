@@ -1,10 +1,10 @@
-#### Summary
+### Summary
 
 Tiny TypeScript/nodejs backend taxi-booking app using Postgres as db and express as server framework.
 
 The routes, spec, API-client, etc, are all generated with [tsoa](https://github.com/lukeautry/tsoa).
 
-#### Description
+### Description
 
 One problem I've seen happening over and over again in the industry is that we get behind with chore work such as updating Openapi specs and SDKs. I wanted to find a solution, and this repo is an example that fixes it by using a code-first approach that generates routes, validators, client SDK, and API-spec (swagger).
 
@@ -14,7 +14,7 @@ Please have a look inside the backend folder to see the structure, then the magi
 
 Also note that you need to cd into the backend folder and run both `npm install` and `npm run generate` there in order to build the be routes and the client.
 
-#### Setup steps
+### Setup steps
 
 1. Add local db folder `mkdir -p .postgres/data`
 2. `cd` into the backend folder and run `npm install` followed by `npm run generate`. This will build routes, api-spec, and api-client for the script to use.

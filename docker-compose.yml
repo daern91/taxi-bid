@@ -8,8 +8,8 @@ services:
         ports:
             - 5432:5432
         environment:
-            - POSTGRES_PASSWORD
-            - POSTGRES_DB
+            - POSTGRES_PASSWORD=asdf1234
+            - POSTGRES_DB=taxi-db
             - POSTGRES_INITDB_ARGS=--auth-host=md5 --auth-local=md5
         command: -p 5432 -c max_connections=1000
 
@@ -21,8 +21,8 @@ services:
         volumes:
             - ./db-migrations/sql:/flyway/sql
         environment:
-            - POSTGRES_PASSWORD
-            - POSTGRES_DB
+            - POSTGRES_PASSWORD=asdf1234
+            - POSTGRES_DB=taxi-db
 
     backend:
         build: backend
@@ -35,10 +35,11 @@ services:
           - 9090:9090
         command: ["npm", "run", "dev"]
         environment:
-            - POSTGRES_PASSWORD
-            - PGUSER
-            - PGPASSWORD
-            - PGDATABASE
+            - POSTGRES_PASSWORD=asdf1234
+            - POSTGRES_DB=taxi-db
+            - PGUSER=postgres
+            - PGPASSWORD=asdf1234
+            - PGDATABASE=taxi-db
             - PGHOST=host.docker.internal
             - PGPORT=5432
             - PG_CLIENT_MAX_CONNECTIONS=100

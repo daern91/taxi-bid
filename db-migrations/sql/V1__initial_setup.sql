@@ -18,7 +18,7 @@ CREATE TABLE "Fleet" (
 
 CREATE TABLE "Ride" (
     "id" SERIAL PRIMARY KEY NOT NULL,
-    "clientId" UUID REFERENCES "Client"(id),
+    "clientId" UUID REFERENCES "Client"(id) ON DELETE CASCADE,
     "pickupLocation" TEXT NOT NULL,
     "dropoffLocation" TEXT NOT NULL,
     "proposedPrice" DECIMAL NOT NULL,
@@ -28,8 +28,8 @@ CREATE TABLE "Ride" (
 
 CREATE TABLE "Bid" (
     "id" SERIAL PRIMARY KEY NOT NULL,
-    "rideId" INT REFERENCES "Ride"(id),
-    "fleetId" UUID REFERENCES "Fleet"(id),
+    "rideId" INT REFERENCES "Ride"(id) ON DELETE CASCADE,
+    "fleetId" UUID REFERENCES "Fleet"(id) ON DELETE CASCADE,
     "bidAmount" DECIMAL NOT NULL,
     "accepted" BOOLEAN NOT NULL DEFAULT FALSE,
     "createdAt" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
