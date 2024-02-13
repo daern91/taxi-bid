@@ -35,7 +35,6 @@ export class BidService {
 
   public async createBid({ rideId, fleetId, bidAmount }: ICreateBidRequest) {
     try {
-      // @ts-ignore
       return await this.repository.create({
         rideId,
         fleetId,
@@ -51,7 +50,6 @@ export class BidService {
   public async deleteBid(bidId: number): Promise<void> {
     const bid = await this.getBidById(bidId);
     return await this.repository.delete({
-      //@ts-ignore
       id: bid.id,
     });
   }

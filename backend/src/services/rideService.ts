@@ -40,7 +40,6 @@ export class RideService {
     proposedPrice,
   }: ICreateRideRequest): Promise<IRide> {
     try {
-      // @ts-ignore
       return await this.repository.create({
         clientId,
         pickupLocation,
@@ -57,7 +56,6 @@ export class RideService {
   public async deleteRide(rideId: number): Promise<void> {
     const ride = await this.getRideById(rideId);
     return await this.repository.delete({
-      //@ts-ignore
       id: ride.id,
     });
   }

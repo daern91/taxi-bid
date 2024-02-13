@@ -12,9 +12,7 @@ The idea is that we should be able to code our types, and set up the routes/hand
 
 Please have a look inside the backend folder to see the structure, then the magic happens with the `generate` script defined in the be:s `package.json`.
 
-Please note that you need to cd into the backend folder and run both `npm install` and `npm run generate` there in order to build the be routes and the client.
-
-After having generated the files
+Also note that you need to cd into the backend folder and run both `npm install` and `npm run generate` there in order to build the be routes and the client.
 
 #### Setup steps
 

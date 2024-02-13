@@ -17,10 +17,7 @@ import { PostgresErrorCode } from "./pgErrorCodes";
 export class PostgresError extends Error {
   public readonly code: PostgresErrorCode;
 
-  constructor(
-    message: string,
-    public readonly queryError: QueryFailedError
-  ) {
+  constructor(message: string, public readonly queryError: QueryFailedError) {
     super(message);
     this.code = (queryError as unknown as { code: PostgresErrorCode }).code;
   }
@@ -52,8 +49,7 @@ export abstract class BaseRepository<
   // Class representing TypeORM model
   Class extends BaseEntity & Props,
   // Properties required to create this record
-  // @ts-ignore
-  CreateProps,
+  CreateProps
 > {
   constructor(private readonly classFn: new () => Class) {}
 
@@ -65,16 +61,17 @@ export abstract class BaseRepository<
     return this.execute((repo) => repo.find(options));
   }
 
-  public create(model: Class): Promise<Class> {
-    return this.execute((repo) => repo.save(model));
+  public create(model: CreateProps): Promise<Props> {
+    // TODO: fix any cast
+    return this.execute((repo) => repo.save(model as any));
   }
 
   public update(
     id: string | number,
     update: Partial<Props>
   ): Promise<UpdateResult> {
-    //@ts-ignore
-    return this.execute((repo) => repo.update(id, update));
+    // TODO: fix any cast
+    return this.execute((repo) => repo.update(id, update as any));
   }
 
   public async delete(options: FindOptionsWhere<Class>): Promise<void> {
@@ -85,6 +82,7 @@ export abstract class BaseRepository<
     try {
       const repo = await this.getRepository();
       return await fn(repo);
+      // TODO: fix any cast
     } catch (err: any) {
       throw new PostgresError(err.message, err);
     }
