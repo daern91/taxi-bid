@@ -1,8 +1,8 @@
 #### Summary
 
-Tiny TypeScript/nodejs backend taxi-booking app using postgres as db and express as server framework.
+Tiny TypeScript/nodejs backend taxi-booking app using Postgres as db and express as server framework.
 
-The routes, spec, api-client, etc, are all generated with [tsoa](https://github.com/lukeautry/tsoa).
+The routes, spec, API-client, etc, are all generated with [tsoa](https://github.com/lukeautry/tsoa).
 
 #### Description
 
@@ -12,13 +12,14 @@ The idea is that we should be able to code our types, and set up the routes/hand
 
 Please have a look inside the backend folder to see the structure, then the magic happens with the `generate` script defined in the be:s `package.json`.
 
-Please note that you need to cd into the backend folder and run both `npm install` and `npm run generate` there in order to build the be routes and the api-client.
+Please note that you need to cd into the backend folder and run both `npm install` and `npm run generate` there in order to build the be routes and the client.
 
 After having generated the files
 
-
 #### Setup steps
 
-1. `cd` into the backend folder and run `npm install` followed by `npm run generate`. This will build routes, api-spec, and api-client for the script to use.
-2. Run `docker compose up` to start services and populate DB.
-3. `cd` into the scripts folder, run `npm install` followed by `npm test` to verify that all endpoints are working.
+1. Add local db folder `mkdir -p .postgres/data`
+2. `cd` into the backend folder and run `npm install` followed by `npm run generate`. This will build routes, api-spec, and api-client for the script to use.
+3. Run `docker compose up` to start services and populate DB.
+4. `cd` into the scripts folder, run `npm install` followed by `npm start` to verify that all endpoints are working.
+5. Script tests should pass
